@@ -1,10 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-import Menu from './components/menu';
+import Game from './components/game.js';
 
 function App() {
   return (
-    <Menu />
+    <Game />
   );
 }
 

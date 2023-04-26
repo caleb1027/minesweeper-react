@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.flagged {
+    background-image: url(./images/flat_basic_home_flag_-512.webp);
+    background-size: 95%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tile {
+    user-select: none;
+}
+.open0 {
+    color: transparent
+}
+.open1 {
+    color:rgb(0, 0, 255);
+}
+.open2 {
+    color: rgb(0, 124, 0);
+}
+.open3 {
+    color: red;
+}
+.open4 {
+    color: rgb(0, 0, 128);
+}
+.open5 {
+    color: rgb(128, 0, 0);
+}
+.open6 {
+    color: rgb(0, 128, 128);
+}
+.open7 {
+    color: purple;
+}
+.open8 {
+    color: black;
+}
