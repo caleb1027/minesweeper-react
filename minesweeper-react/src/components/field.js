@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import Tile from './tile';
+import './sprite.css';
 
 const Field = props => {
     let handleMiddle = (x, y) => {
@@ -103,12 +104,18 @@ const Field = props => {
     let youLose = () => {
         setGameState(-1);
         setGameOver(true);
-        console.log("You lose!");
+        for(let i = 0; i < props.height; i++) {
+            for(let j = 0; j < props.width; j++) {
+                if(field[i][j].isMine) {
+                    field[i][j].revealed = true;
+                }
+            }
+        }
     }
 
     let createField = () => {
         let field = new Array(props.height);
-        for(let i = 0; i < props.width; i++) {
+        for(let i = 0; i < props.height; i++) {
             field[i] = new Array(props.width);
             for(let j = 0; j < props.width; j++) {
                 field[i][j] = {
@@ -139,8 +146,8 @@ const Field = props => {
         }
         let mines = 0;
         while(mines < props.mines) {
-            let x = Math.floor(Math.random() * props.width);
-            let y = Math.floor(Math.random() * props.height);
+            let x = Math.floor(Math.random() * props.height);
+            let y = Math.floor(Math.random() * props.width);
             if(fieldCopy[x][y].value === -7) {
                 fieldCopy[x][y].value = -1;
                 fieldCopy[x][y].isMine = true;
@@ -171,6 +178,13 @@ const Field = props => {
         return;
     }
 
+    let restartGame = () => {
+        setField(createField());
+        setGameOver(false);
+        setGameStarted(false);
+        setGameState(0);
+    }
+
     let [field, setField] = useState(createField());
     let [adjacencyMatrix, setAdjacencyMatrix] = useState();
     let [gameStarted, setGameStarted] = useState(false);
@@ -179,6 +193,7 @@ const Field = props => {
 
     return (
         <div className="gameBoard flex flex-col align-center items-center justify-center h-screen">
+            <Sprite state={gameState} restart={restartGame}/>
             {field.map((row, i) => (
                 <div className="row flex h-10" id={i}>
                     {row.map((tile, j) => (
@@ -190,4 +205,11 @@ const Field = props => {
     )
 }
 
+let Sprite = (props) => {
+    return (
+        <div className={`sprite${props.state} border-black border-2 h-12 w-12 m-1 bg-neutral-600 rounded-sm active:bg-neutral-700`}
+             onClick={props.restart}>
+        </div>
+    )
+}
 export default Field;

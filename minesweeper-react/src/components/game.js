@@ -9,7 +9,7 @@ function Game() {
     const difficulties = [
         [9,9,10],
         [16,16,40],
-        [30,16,99]];
+        [16,30,99]];
 
     const startGame = () => {
         setPassedValues(difficulties[difficulty]);

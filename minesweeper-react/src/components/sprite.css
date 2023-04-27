@@ -1,0 +1,19 @@
+.sprite1 {
+    background-image: url(./images/cool.avif);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.sprite0 {
+    background-image: url(./images/smile.png);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.sprite-1 {
+    background-image: url(./images/dead.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}

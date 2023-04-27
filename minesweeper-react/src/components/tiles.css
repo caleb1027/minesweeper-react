@@ -9,6 +9,15 @@
     background-position: center;
 }
 
+.open-1{
+    color: transparent;
+    background-image: url(./images/bomb.png);
+    background-size: 95%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: red;
+}
+
 .tile {
     user-select: none;
 }

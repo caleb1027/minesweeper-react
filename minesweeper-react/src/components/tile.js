@@ -28,7 +28,7 @@ const Tile = props => {
       }
     return (
         <div className=
-                    {`${props.attributes.revealed ? "open" + props.attributes.value +" bg-slate-400" : "bg-slate-300 active:bg-slate-500 hover:bg-slate-400"}
+                    {`${props.attributes.revealed ? "open" + props.attributes.value +" bg-slate-400" : "bg-slate-200 active:bg-slate-500 hover:bg-slate-300"}
                     border-2 border-black w-10 h-10 text-center text-3xl font-bold flex justify-center items-center tile
                     ${props.attributes.flagged ? "flagged" : ""}`}
                     onClick={() => { props.handleReveal(props.attributes.x, props.attributes.y, true) }} 
