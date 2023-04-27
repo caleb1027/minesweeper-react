@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Tile from './tile';
-import './sprite.css';
+import Timer from './timer';
+import './styles/sprite.css'
 
 const Field = props => {
     let handleMiddle = (x, y) => {
@@ -52,9 +53,9 @@ const Field = props => {
                 }
             }
         }
+        setMinesRemaining('W')
         setGameState(1);
         setGameOver(true);
-        console.log("You win!");
     }
 
     let handleFlag = (x, y) => {
@@ -63,8 +64,10 @@ const Field = props => {
         }
         if(field[x][y].flagged) {
             field[x][y].flagged = false;
+            setMinesRemaining(minesRemaining + 1);
         } else if(!field[x][y].revealed) {
             field[x][y].flagged = true;
+            setMinesRemaining(minesRemaining - 1);
         }
         updateAdjacencyMatrix();
         checkWin();
@@ -180,6 +183,8 @@ const Field = props => {
 
     let restartGame = () => {
         setField(createField());
+        setCounter(0);
+        setMinesRemaining(props.mines);
         setGameOver(false);
         setGameStarted(false);
         setGameState(0);
@@ -190,10 +195,20 @@ const Field = props => {
     let [gameStarted, setGameStarted] = useState(false);
     let [gameOver, setGameOver]  = useState(false);
     let [gameState, setGameState] = useState(0);
+    let [counter, setCounter] = useState(0);
+    let [minesRemaining, setMinesRemaining] = useState(props.mines);
+
+    let updateCounter = () => {
+        setCounter(counter + 1);
+    }
 
     return (
         <div className="gameBoard flex flex-col align-center items-center justify-center h-screen">
-            <Sprite state={gameState} restart={restartGame}/>
+            <div className='flex justify-evenly'>
+                <MineCounter mines={minesRemaining}/>
+                <Sprite state={gameState} restart={restartGame}/>
+                <Timer gameState={gameState} gameStarted={gameStarted} count={counter} setCounter={updateCounter}/>
+            </div>
             {field.map((row, i) => (
                 <div className="row flex h-10" id={i}>
                     {row.map((tile, j) => (
@@ -201,6 +216,14 @@ const Field = props => {
                     ))}
                 </div>
             ))}
+        </div>
+    )
+}
+
+let MineCounter = (props) => {
+    return (
+        <div className="flex-col flex align-middle justify-center items-center h-12 m-1 text-white w-12 text-center text-2xl bg-slate-600">
+           <h1 className=''> {props.mines} </h1>
         </div>
     )
 }

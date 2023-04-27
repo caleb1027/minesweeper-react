@@ -1,4 +1,4 @@
-import redflag from './images/red-flag.png'
+import redflag from './styles/images/red-flag.png'
 
 const Menu = props => {
     return (

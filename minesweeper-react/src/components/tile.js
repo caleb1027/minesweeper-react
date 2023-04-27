@@ -1,4 +1,4 @@
-import './tiles.css';
+import './styles/tiles.css';
 import { useEffect } from 'react';
 const Tile = props => {
 
