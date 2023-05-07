@@ -1,9 +1,10 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Tile from './tile';
 import Timer from './timer';
 import './styles/sprite.css'
 
 const Field = props => {
+
     let handleMiddle = (x, y) => {
         if(gameState < 0 || gameOver) {
             return;
@@ -104,6 +105,14 @@ const Field = props => {
         checkWin();
     }
 
+    let changeCounter = () => {
+        if(gameState === 0 && gameStarted) {
+            setCounter(counter + 1);
+        } else {
+            setCounter(0);
+        }
+    }
+
     let youLose = () => {
         setGameState(-1);
         setGameOver(true);
@@ -183,12 +192,13 @@ const Field = props => {
 
     let restartGame = () => {
         setField(createField());
-        setCounter(0);
         setMinesRemaining(props.mines);
         setGameOver(false);
         setGameStarted(false);
         setGameState(0);
+        setCounter(0);
     }
+
 
     let [field, setField] = useState(createField());
     let [adjacencyMatrix, setAdjacencyMatrix] = useState();
@@ -198,16 +208,19 @@ const Field = props => {
     let [counter, setCounter] = useState(0);
     let [minesRemaining, setMinesRemaining] = useState(props.mines);
 
-    let updateCounter = () => {
-        setCounter(counter + 1);
-    }
+    useEffect(() => {
+        if(!gameStarted) {
+            setCounter(0);
+        }
+    }, [counter, gameStarted]);
+
 
     return (
         <div className="gameBoard flex flex-col align-center items-center justify-center h-screen">
             <div className='flex justify-evenly'>
                 <MineCounter mines={minesRemaining}/>
                 <Sprite state={gameState} restart={restartGame}/>
-                <Timer gameState={gameState} gameStarted={gameStarted} count={counter} setCounter={updateCounter}/>
+                <Timer gameState={gameState} gameStarted={gameStarted} count={counter} setCounter={changeCounter}/>
             </div>
             {field.map((row, i) => (
                 <div className="row flex h-10" id={i}>

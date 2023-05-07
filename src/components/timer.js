@@ -1,9 +1,14 @@
-import {useState, useEffect} from 'react';
+import { useEffect} from 'react';
 
 let Timer = (props) => {
     useEffect(() => {
+        
         if(props.gameState === 0 && props.gameStarted) {
-            setTimeout(() =>props.setCounter(props.count + 1), 1000);
+            var timeRes = setTimeout(() =>props.setCounter(props.count + 1), 1000);
+        } else if(props.count === 0 && !props.gameStarted) {
+            console.log("test")
+            clearTimeout(timeRes);
+            props.setCounter(0);
         }
     }, [props.count, props.gameStarted]);
 
